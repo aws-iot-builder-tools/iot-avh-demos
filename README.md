@@ -1,11 +1,14 @@
-## My Project
+## Debugging IoT Connectivity with Arm Virtual Hardware and AWS IoT Core Device Advisor.
 
-TODO: Fill this README out!
+This sample project shows how to build and deploy a custom firmware image to an iMX8m Arm Virtual Hardware (AVH) device, run an MQTT application which connects to AWS IoT, subscribes to IoT topics and publishes 
+network and memory stats from the device. The resilience of the MQTT application implementation will be tested by running AWS IoT Device Advisor integration tests. We will be focusing on the AWS Qualification Test Suite in this readme, but
+you can extend the test suites to include any of the AWS IoT Core Device Advisor available tests. More information on available test suites [here](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-tests.html). 
 
-Be sure to:
+Follow the steps in the 2 parts below:
+1. [Part 1: Build and Upload the Yocto image for Arm Virtual Hardware (AVH) Simulator](AVH/iMX8m/README.md)
 
-* Change the title in this README
-* Edit your repository description on GitHub
+3. [Part 2: Configure Device Advisor Tests and Start your Device MQTT Client. 
+](device-advisor/README.md)
 
 ## Security
 

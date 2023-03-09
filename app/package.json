@@ -1,0 +1,17 @@
+{
+  "name": "mqtt-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "aws-crt": "^1.14.5",
+    "aws-iot-device-sdk-v2": "^1.8.9",
+    "process": "^0.11.10",
+    "@aws-sdk/client-iot": "^3.45.0",
+    "winston": "^3.8.2",
+    "util": "^0.12.5",
+    "signal-exit": "^3.0.7",
+    "fs": "^0.0.1-security",
+    "systeminformation": "^5.17.9"
+  },
+  "type": "module"
+}
