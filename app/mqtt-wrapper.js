@@ -148,7 +148,7 @@ export class MqttClientWrapper extends EventEmitter {
             this._logger.info('[MqttClient_ConfigureConnection_OnError]', {
                 clientId: this._clientId,
                 error: error.toString()
-            });
+            }); //TODO: implement retries here.
             // Example: Failed to connect: aws-c-io: AWS_IO_DNS_INVALID_NAME, Host name was invalid for dns resolution.
         });
         this._connection.on('interrupt', (error) => {
