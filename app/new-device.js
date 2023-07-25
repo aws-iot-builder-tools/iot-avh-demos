@@ -1,19 +1,19 @@
 import {
     IoTClient,
     CreateThingCommand,
-    CreateKeysAndCertificateCommand, AttachPolicyCommand, AttachThingPrincipalCommand
+    CreateKeysAndCertificateCommand, AttachPolicyCommand, AttachThingPrincipalCommand, CreatePolicyCommand
 } from "@aws-sdk/client-iot";
 import fs from 'fs';
 import {config} from './config.js';
 const CERTIFICATE_FILE = './certificate.pem';
 const PRIVATE_KEY_FILE = './private-key.pem';
+const POLICY_NAME= "IoTPolicy";
 const client = new IoTClient({region: config.region});
 
 export class Device {
     constructor(options = {}) {
       this._thingName = options.thingName;
       this._logger = options.logger;
-      this._policyName = options.policyName;
     }
 
     get thingName () {
@@ -41,10 +41,50 @@ export class Device {
         const command = new CreateKeysAndCertificateCommand({setAsActive: true});
         const response = await client.send(command);
         this._storeCertificate(response);
+        try {
+            await this._createIoTPolicy();
+        } catch (e) {
+            this._logger.error('[Device] Error creating policy', e.toString());
+        }
         await this._attachPolicyToCertificate(response);
         return await this.attachCertificateToThing(response);
     }
 
+
+    async _createIoTPolicy() {
+        const policyDocument =
+            {
+                Version: "2012-10-17",
+                Statement: [
+                    {
+                        Effect: "Allow",
+                        Action: "iot:Connect",
+                        Resource: `arn:aws:iot:${config.region}:${config.accountId}:client/\${iot:ClientId}`
+                    },
+                    {
+                        Effect: "Allow",
+                        Action: "iot:Publish",
+                        Resource: `arn:aws:iot:${config.region}:${config.accountId}:topic/devices/*`
+                    },
+                    {
+                        Effect: "Allow",
+                        Action: "iot:Receive",
+                        Resource: `arn:aws:iot:${config.region}:${config.accountId}:topic/devices/*`
+                    },
+                    {
+                        Effect: "Allow",
+                        Action: "iot:Subscribe",
+                        Resource: `arn:aws:iot:${config.region}:${config.accountId}:topicfilter/devices/*`
+                    },
+                ]
+            };
+        const input = {
+            policyName: POLICY_NAME,
+            policyDocument: JSON.stringify(policyDocument),
+        };
+        const command = new CreatePolicyCommand(input);
+        return await client.send(command);
+    }
 
      _storeCertificate  (response) {
         fs.writeFileSync("./private-key.pem", response.keyPair.PrivateKey);
@@ -55,7 +95,7 @@ export class Device {
     async _attachPolicyToCertificate(certResponse) {
         //TODO: this must exist. Must create full citizen policy in CF.
         this._logger.info('[Device] Attaching policy to principal ', this.thingName);
-        const command = new AttachPolicyCommand({policyName: this._policyName, target: certResponse.certificateArn});
+        const command = new AttachPolicyCommand({policyName: POLICY_NAME, target: certResponse.certificateArn});
         return await client.send(command);
       }
 

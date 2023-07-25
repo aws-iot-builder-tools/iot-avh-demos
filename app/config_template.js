@@ -3,11 +3,11 @@
 
 export const config = {
     iotEndpoint: 'IOT ATS DATA ENDPOINT PLACEHOLDER',
-    daEndpoint: 'IOT DEVICE ADVISOR ENDPOIUNT',
+    daEndpoint: 'IOT DEVICE ADVISOR ENDPOINT',
     clientId: 'iMX8m-84',
-    policyName: 'IoT POLICY NAME PLACEHOLDER',
     verbosity: 'warn',
-    region: 'REGION PLACEHOLDER'
+    region: 'REGION PLACEHOLDER',
+    accountId: 'YOUR ACCOUNT ID'
 }
 
  */

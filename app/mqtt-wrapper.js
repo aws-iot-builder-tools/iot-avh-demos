@@ -85,8 +85,8 @@ export class MqttClientWrapper extends EventEmitter {
             return false;
         }
         try {
-            const test = await this._connection.subscribe(topic, qos, onMessage);
-            this._logger.info('HERE SUBSCRIBING: ', JSON.stringify(test));
+            const sub = await this._connection.subscribe(topic, qos, onMessage);
+            this._logger.info('[MqttClient_Subscribe] Subscribing: ', JSON.stringify(sub));
             return true;
         } catch (error) {
             this._logger.error('[MqttClient_Subscribe_Error]', error);
