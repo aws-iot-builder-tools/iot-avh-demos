@@ -9,7 +9,7 @@ This test suite is generally created one, and ran multiple times.
 
 ## Create the test suite 
 Follow the instructions [here](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-console-tutorial.html#device-advisor-console-create-suite) to create the test suite in the AWS Console.
-This sample is configured to run the AWS Qualification Test Suite, but you can create other test suites if you so wish.
+This sample is configured to run the AWS Qualification Test Suite, but you can create other test suites if you so wish. 
 
 ## Create the IAM Role 
 Follow the instructions [here](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-setting-up.html#da-iam-role) to create an AWS IAM Role which will be used as your device role. 
@@ -30,12 +30,14 @@ aws iotdeviceadvisor start-suite-run \
 --suite-run-configuration '{"primaryDevice":{"thingArn": "arn:aws:iot:<YOUR_REGION>:<YOUR_ACCOUNT_ID>:thing/iMX8m-84"}}'
 ```
 - **Start your device simulator application on the AVH device.**
-Follow the instructions [here](../app/README.md).
+For this, you can use the AWS IoT Device Client or the Node.JS simulator application provided in this repo. 
+To use the Node.JS client, follow the instructions [here](../app/README.md).
+To use the AWS IoT Device Client, follow the configuration steps here: https://github.com/awslabs/aws-iot-device-client/blob/main/docs/CONFIG.md.  
 
 _Note_ : You need to start the simulator app immediately after the test suite run is `IN PROGRESS`. Otherwise, there will be MQTT errors. For more information, have a look at the Device Advisor [docs](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-troubleshooting.html). 
 
 - **Examine your test suite run results**
-You can do this in the AWS Console, as instructed [here](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-console-tutorial.html#device-advisor-console-view-logs). 
+You can do this in the AWS Console, as instructed [here](https://docs.aws.amazon.com/iot/latest/developerguide/device-advisor-console-tutorial.html#device-advisor-console-view-logs).
 
 ## Other useful AWS CLI commands for Device Advisor
 `aws iotdeviceadvisor get-endpoint`

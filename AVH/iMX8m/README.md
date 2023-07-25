@@ -2,8 +2,8 @@
 This repository contains instructions to build a Yocto image and upload it to AVH.
 
 **Pre-requisites:**
-1. An AWS Account, AWS tokens for programmatic access.
-2. An account for Arm Virtual Hardware, currently in private Beta testing.
+1. An AWS Account.
+2. An account for Arm Virtual Hardware.
 3. A powerful EC2 instance to build the Yocto image.
 
 **Notes**:
@@ -58,7 +58,7 @@ PACKAGECONFIG:remove:pn-aws-iot-device-client = " dsn"
 6. Build the image:
 `bitbake imx-image-full -k > build.log 2>&1 &`
 
-**Steps to prepare the image for AVH-iMX8m **
+**Steps to prepare the image for AVH-iMX8m**
 
 1. Read and understand the packaging formats supported by AVH from the [AVH Guide](https://developer.arm.com/documentation/107660/0200/Getting-started/Quickstart/Quickstart-for-iMX8m-Arm-Cortex-Complex?lang=en) https://developer.arm.com/documentation/107660/0200/Custom-Firmware/Firmware/Understanding-Firmware-on-AVH?lang=en
 2. Prepare the contents of the ZIP image package, for the newly built iMX8m image:
