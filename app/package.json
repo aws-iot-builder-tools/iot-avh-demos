@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "dependencies": {
-    "aws-crt": "^1.21.1",
+    "aws-crt": "^1.23.0",
     "aws-iot-device-sdk-v2": "^1.8.9",
     "process": "^0.11.10",
     "@aws-sdk/client-iot": "^3.637.0",
